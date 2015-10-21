@@ -57,7 +57,7 @@ function s1945ii.get_p1_fire_power()
     return mem:read_u8(0x60103e7)
 end
 
-function s1945ii.get_number_of_flights()
+function s1945ii.get_number_of_enemies()
     return mem:read_u16(0x6018b46)
 end
 -- n(items) = n(gold) + n(power) + n(bomb)
@@ -107,6 +107,38 @@ function read_object(address)
                 ["child"] = a_4 & 0xffff,
                 ["check"] = a_4 >> 16,
                 ["type"] = _type}
+end
+
+function s1945ii.get_enemies()
+    local objects = {}
+    local adr = 0x6015f68
+    
+    for i=1,s1945ii.get_number_of_enemies() do
+        local t = read_object(adr)
+        if t["ref"] == 0 then
+            break
+        end
+        objects[adr] = t
+        adr = adr + 0x10 
+    end
+
+    return objects
+end
+
+function s1945ii.get_p1_collision()
+    local objects = {}
+    local adr = 0x6015f68 + s1945ii.get_number_of_enemies() * 0x10
+
+    for i = 1, 2 do
+        local t = read_object(adr)
+        if t["ref"] == 0 then
+            break
+        end
+        objects[adr] = t
+        adr = adr + 0x10 
+    end
+
+    return objects
 end
 
 function s1945ii.get_flights()
@@ -160,8 +192,13 @@ function s1945ii.get_missiles()
 end
 
 -- draw
-function s1945ii.draw_flights()
-    s1945ii.draw_hitbox(s1945ii.get_flights(), 0x80ff0030, 0xffff00ff) 
+function s1945ii.draw_enemies()
+    s1945ii.draw_hitbox(s1945ii.get_enemies(), 0x80ff0030, 0xffff00ff) 
+end
+
+function s1945ii.draw_p1_collision()
+    s1945ii.draw_hitbox(s1945ii.get_p1_collision(), 0x80ff0030, 0xffff00ff) 
+
 end
 
 function s1945ii.draw_missiles()
@@ -169,6 +206,8 @@ function s1945ii.draw_missiles()
 end
 
 function s1945ii.draw_hitbox(objs, color_inside, color_border)
+    if objs == nil then return end
+
     for k,v in pairs(objs) do
         min_x = math.max(v["x"], 0)
         min_y = math.max(v["y"], 0)

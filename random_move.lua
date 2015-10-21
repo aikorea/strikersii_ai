@@ -66,8 +66,10 @@ end
 --tick
 function tick()
     s1945ii.cheat()
-    s1945ii.draw_flights()
+    s1945ii.draw_enemies()
+    s1945ii.draw_p1_collision()
     s1945ii.draw_missiles()
+    s1945ii.draw_messages("n(enemies):" .. s1945ii.get_number_of_enemies())
     p1()
 end
 
