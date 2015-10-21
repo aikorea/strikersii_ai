@@ -1,5 +1,5 @@
 
-module_path = "../Strikers-1945-2-Hack/?.lua"
+module_path = "../?.lua"
 package_name = "s1945ii"
 package.path = package.path .. ";" .. module_path
 s1945ii = require (package_name)
