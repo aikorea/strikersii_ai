@@ -57,7 +57,7 @@ function s1945ii.get_p1_fire_power()
     return mem:read_u8(0x60103e7)
 end
 
-function s1945ii.get_number_of_object()
+function s1945ii.get_number_of_flights()
     return mem:read_u16(0x6018b46)
 end
 -- n(items) = n(gold) + n(power) + n(bomb)
