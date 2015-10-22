@@ -3,6 +3,9 @@ local s1945ii = {}
 local cpu = manager:machine().devices[":maincpu"]
 local mem = cpu.spaces["program"]
 local screen = manager:machine().screens[":screen"]
+s1945ii.cpu = cpu
+s1945ii.mem = mem
+s1945ii.screen = screen 
 
 function s1945ii.cheat()
 -- set infinite credit
