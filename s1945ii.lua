@@ -14,6 +14,7 @@ function s1945ii.cheat()
     mem:write_u8(0x60103FA, 1)
 -- set P1 infinite life
     mem:write_u8(0x60103c1, 3)
+end
 
 function s1945ii.is_p1_invincible()
     return mem:write_u8(0x60103FA)
