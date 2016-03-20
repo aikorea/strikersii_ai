@@ -5,7 +5,7 @@ local mem = cpu.spaces["program"]
 local screen = manager:machine().screens[":screen"]
 s1945ii.cpu = cpu
 s1945ii.mem = mem
-s1945ii.screen = screen 
+s1945ii.screen = screen
 
 function s1945ii.cheat()
 -- set infinite credit
@@ -16,8 +16,12 @@ function s1945ii.cheat()
     mem:write_u8(0x60103c1, 3)
 end
 
+function s1945ii.is_p1_dead()
+    return ((mem:read_u8(0x60103F8) == 128) and 1 or 0)
+end
+
 function s1945ii.is_p1_invincible()
-    return mem:write_u8(0x60103FA)
+    return mem:read_u8(0x60103FA)
 end
 
 function s1945ii.get_p1_x()
@@ -106,9 +110,9 @@ function read_object(address)
         _type = "enemy"
     end
 
-    return {    ["ref"]=a_1, 
-                ["x"] = x, 
-                ["y"] = y, 
+    return {    ["ref"]=a_1,
+                ["x"] = x,
+                ["y"] = y,
                 ["height"] = height,
                 ["width"] = width,
                 ["child"] = a_4 & 0xffff,
@@ -119,14 +123,14 @@ end
 function s1945ii.get_enemies()
     local objects = {}
     local adr = 0x6015f68
-    
+
     for i=1,s1945ii.get_number_of_enemies() do
         local t = read_object(adr)
         if t["ref"] == 0 then
             break
         end
         objects[adr] = t
-        adr = adr + 0x10 
+        adr = adr + 0x10
     end
 
     return objects
@@ -142,7 +146,7 @@ function s1945ii.get_p1_collision()
             break
         end
         objects[adr] = t
-        adr = adr + 0x10 
+        adr = adr + 0x10
     end
 
     return objects
@@ -151,14 +155,14 @@ end
 function s1945ii.get_flights()
     local objects = {}
     local adr = 0x6015f68
-    
+
     while (1) do
         local t = read_object(adr)
         if t["ref"] == 0 then
             break
         end
         objects[adr] = t
-        adr = adr + 0x10 
+        adr = adr + 0x10
         if (mem:read_u32(t["ref"]) == 0x6091e48 and t["child"] == 1) then
             break
         end
@@ -179,7 +183,7 @@ function s1945ii.get_flights()
 
             if (cnt >= s1945ii.get_number_of_items()) then break end
         end
-        adr = adr + 0x10 
+        adr = adr + 0x10
     end
 
     return objects
@@ -200,16 +204,15 @@ end
 
 -- draw
 function s1945ii.draw_enemies()
-    s1945ii.draw_hitbox(s1945ii.get_enemies(), 0x80ff0030, 0xffff00ff) 
+    s1945ii.draw_hitbox(s1945ii.get_enemies(), 0x80ff0030, 0xffff00ff)
 end
 
 function s1945ii.draw_p1_collision()
-    s1945ii.draw_hitbox(s1945ii.get_p1_collision(), 0x80ff0030, 0xffff00ff) 
-
+    s1945ii.draw_hitbox(s1945ii.get_p1_collision(), 0x80ff0030, 0xffff00ff)
 end
 
 function s1945ii.draw_missiles()
-    s1945ii.draw_hitbox(s1945ii.get_missiles(),0, 0xff00ffff) 
+    s1945ii.draw_hitbox(s1945ii.get_missiles(),0, 0xff00ffff)
 end
 
 function s1945ii.draw_hitbox(objs, color_inside, color_border)
