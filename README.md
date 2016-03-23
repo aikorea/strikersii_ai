@@ -26,4 +26,4 @@ AI playing Strikers 1945 II.
 
 [ROM]: http://doperoms.com/roms/mame/s1945ii.zip.html/689168/S1945ii.zip.html
 [Video]: https://youtu.be/resr2K0z1Aw
-[GP]: ./genetic/README.md
+[GP]: ./genetic/

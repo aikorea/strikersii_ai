@@ -16,12 +16,12 @@ function s1945ii.cheat()
     mem:write_u8(0x60103c1, 3)
 end
 
-function s1945ii.save_state()
-    manager:machine():save("s1945ii.saved")
+function s1945ii.save_state(filename)
+    manager:machine():save(filename)
 end
 
-function s1945ii.load_state()
-    manager:machine():load("s1945ii.saved")
+function s1945ii.load_state(filename)
+    manager:machine():load(filename)
 end
 
 function s1945ii.is_p1_dead()

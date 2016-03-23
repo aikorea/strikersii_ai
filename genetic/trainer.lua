@@ -1,6 +1,6 @@
 -- AI for Strikers 1945 II : Simple genetic programmng approach.
 -- by Chang-young Koh (kcy1019, http://lucent.me)
--- *This script required a saved game state.
+-- *This script requires a saved game state.
 module_path = "../?.lua"
 package_name = "s1945ii"
 package.path = package.path .. ";" .. module_path
@@ -240,7 +240,7 @@ local btn = {[0] = ioport["P1 Left"],
 function EvalGenome(g)
     local cur_btn = nil
     local dir = 0
-    s1945ii.load_state()
+    s1945ii.load_state("s1945ii.saved")
     for i = 0, 4, 1 do
         if btn[i] ~= nil then
             btn[i].write(btn[i], 0)
