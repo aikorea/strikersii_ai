@@ -16,6 +16,14 @@ function s1945ii.cheat()
     mem:write_u8(0x60103c1, 3)
 end
 
+function s1945ii.save_state()
+    manager:machine():save("s1945ii.saved")
+end
+
+function s1945ii.load_state()
+    manager:machine():load("s1945ii.saved")
+end
+
 function s1945ii.is_p1_dead()
     return ((mem:read_u8(0x60103F8) == 128) and 1 or 0)
 end
@@ -37,7 +45,7 @@ function s1945ii.get_stage_time()
     return mem:read_u32(0x600c4e0)
 end
 
-function s1945ii.get_state_number()
+function s1945ii.get_stage_number()
     return mem:read_u8(0x600c674) + 1
     --mem:read_u8(0x600c553)
 end
@@ -204,15 +212,15 @@ end
 
 -- draw
 function s1945ii.draw_enemies()
-    s1945ii.draw_hitbox(s1945ii.get_enemies(), 0x80ff0030, 0xffff00ff)
+    s1945ii.draw_hitbox(s1945ii.get_enemies(), 0x80ff0030, 0x000000ff)
 end
 
-function s1945ii.draw_p1_collision()
+function s1945ii.draw_p1_collision(radius)
     s1945ii.draw_hitbox(s1945ii.get_p1_collision(), 0x80ff0030, 0xffff00ff)
 end
 
 function s1945ii.draw_missiles()
-    s1945ii.draw_hitbox(s1945ii.get_missiles(),0, 0xff00ffff)
+    s1945ii.draw_hitbox(s1945ii.get_missiles(),0, 0xff0000ff)
 end
 
 function s1945ii.draw_hitbox(objs, color_inside, color_border)
@@ -227,11 +235,11 @@ function s1945ii.draw_hitbox(objs, color_inside, color_border)
 
         if (v["type"] == "power" or v["type"] == "bomb" or v["type"] == "gold") then
             if (v["type"] == "power") then
-                screen:draw_box(min_y, min_x, max_y, max_x, 0, 0xff00ffff)
+                screen:draw_box(min_y, min_x, max_y, max_x, 0, 0x000fffff)
             elseif (v["type"] == "bomb") then
-                screen:draw_box(min_y, min_x, max_y, max_x, 0, 0xffff00ff)
+                screen:draw_box(min_y, min_x, max_y, max_x, 0, 0x0f00ffff)
             elseif (v["type"] == "gold") then
-                screen:draw_box(min_y, min_x, max_y, max_x, 0, 0xffffff00)
+                screen:draw_box(min_y, min_x, max_y, max_x, 0, 0xf000ffff)
             end
         else
             screen:draw_box(min_y, min_x, max_y, max_x, color_inside, color_border)
@@ -240,9 +248,7 @@ function s1945ii.draw_hitbox(objs, color_inside, color_border)
 end
 
 function s1945ii.draw_messages(str)
-    screen:draw_text(40, 40, str);
+    screen:draw_text(40, 40, str)
 end
 
 return s1945ii
-
-
