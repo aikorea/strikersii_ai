@@ -7,9 +7,9 @@
 
 ## Explanation
 
-The white box represents AI's sight. Every 3 frames, AI evaluates risk of each move(left, right, up, down, stay) and selects one with the least risk. Risk evaluation is done by multiplying some weights with the status of the AI's sight.
+The white box represents AI's sight. Every 3 frames, AI evaluates risk of each move(left, right, up, down, stay) and selects one with the least risk. Risk evaluation is done by multiplying some weight matrix with the status of the AI's sight. Hence the trainer tries to learn the best weights.
 
-Actually, It's performance is not remarkable because I coded this to show that the Lua coroutine is very useful when coding trainers, not to show the power of genetic programming :)
+Actually, Its performance is not remarkable because I coded this to show that the Lua coroutine is very useful when coding trainers, not to show the power of genetic programming :)
 
 ### [Video Link][Video]
 
