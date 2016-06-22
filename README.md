@@ -1,26 +1,29 @@
 # strikersii_ai
-AI plays strikers 2.
+AI playing Strikers 1945 II.
 
-HOW TO
-=============
-
-1. Repository clone     
+## HOW TO
+1. Clone repository
  > `$ git clone https://github.com/aikorea/strikersii_ai/`
 
-2. Submodule init    
- > `$ git submodule init`
+2. Init & update submodule
+ > `$ git submodule init`<br>
+ > `$ git submodule update`
 
-3. Mame build or download from http://mamedev.org/release.html    
- > `$ cd mame`     
- > `$ make`    
+3. Build or download MAME from http://mamedev.org/release.html
+ > `$ cd mame`<br>
+ > `$ make`
 
-4. Download [Strikers 1945 2](http://doperoms.com/roms/mame/s1945ii.zip.html/689168/S1945ii.zip.html) rom to ($MAME)/roms/s1945ii.zip.
+4. Download [Strikers 1945 2][ROM] rom to `$(pwd)/roms/s1945ii.zip`.
 
-5. run randome move script.    
- > `$ ./mame64 s1945ii -script random_move.lua -window`
+5. Run game with script.
+ > `$ mame/mame64 s1945ii -script random_move.lua -window`
 
 
-Sample 
-=============   
-- [Video Link](https://youtu.be/resr2K0z1Aw)  
+## Sample
+- [Video Link][Video]
+- [Genetic programming approach][GP]
 
+
+[ROM]: http://doperoms.com/roms/mame/s1945ii.zip.html/689168/S1945ii.zip.html
+[Video]: https://youtu.be/resr2K0z1Aw
+[GP]: ./genetic/
